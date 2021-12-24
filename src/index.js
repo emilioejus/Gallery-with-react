@@ -1,12 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './router/App';
 import './index.css';
-import App from './App';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducer from './reducer'
 import reportWebVitals from './reportWebVitals';
+
+const initialState = {
+  buttonIndicatorsNumber: 0
+}
+
+const store = createStore(reducer, initialState);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
