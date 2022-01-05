@@ -24,14 +24,16 @@ const CarouselMM = (props) => {
     }, []);
 
     // returns an array with indicator buttons
-    let buttonss = useCallback(()=> {
-      return {
-        indicators: Array.apply(null, document.querySelectorAll(`#categories__${title} > button`))
-      }
-    }, [])
+    // let buttonss = useCallback(()=> {
+    //   console.log(document.querySelectorAll(`#categories__${title} > button`))
+    //   return {
+    //     indicators: Array.apply(null, document.querySelectorAll(`#categories__${title} > button`))
+    //   }
+    // }, [])
 
     // Dom
     const fila = document.getElementById(`carousel__${title}`);
+    // const buttonsIndicators = Array.apply(null, document.querySelectorAll(`#categories__${title} > button`))
 
     return (
         <>
@@ -45,8 +47,8 @@ const CarouselMM = (props) => {
                       <button 
                       onClick={
                         (e)=> {
-                          console.log(buttonss())
-                          buttonss().indicators.map(buttonI => buttonI.className === 'red' ? buttonI.className = '' : buttonI)
+                          const buttonsIndicators = Array.apply(null, document.querySelectorAll(`#categories__${title} > button`))
+                          buttonsIndicators.map(buttonI => buttonI.className === 'red' ? buttonI.className = '' : buttonI)
                           e.target.className='red'
                           fila.scrollLeft = i * fila.offsetWidth
                         }
@@ -60,7 +62,10 @@ const CarouselMM = (props) => {
                       <button 
                       onClick={
                         (e)=> {
-                          buttonss().indicators.map(buttonI => buttonI.className === 'red' ? buttonI.className = '' : buttonI)
+                          setTimeout(()=> console.log(document.querySelectorAll(`#categories__${title} > button`)), 2000) 
+                          const buttonsIndicators = Array.apply(null, document.querySelectorAll(`#categories__${title} > button`))
+                          console.log(buttonsIndicators)
+                          buttonsIndicators.map(buttonI => buttonI.className === 'red' ? buttonI.className = '' : buttonI)
                           e.target.className='red'
                           fila.scrollLeft = i * fila.offsetWidth
                         }
@@ -78,10 +83,11 @@ const CarouselMM = (props) => {
                 <img className="arrow_left" 
                   onClick={
                     ()=> {
-                      let indexButton = buttonss().indicators.findIndex(button => button.className === 'red');
+                      const buttonsIndicators = Array.apply(null, document.querySelectorAll(`#categories__${title} > button`))
+                      let indexButton = buttonsIndicators.findIndex(button => button.className === 'red');
                       if(indexButton < (buttons.length - 1)) {
-                        buttonss().indicators[indexButton].className = '';
-                        buttonss().indicators[indexButton + 1].className = 'red';
+                        buttonsIndicators[indexButton].className = '';
+                        buttonsIndicators[indexButton + 1].className = 'red';
                         fila.scrollLeft += fila.offsetWidth  
                       }   
                     }
@@ -118,11 +124,12 @@ const CarouselMM = (props) => {
                 {/* ***** arrow left ***** */}
                 <img className="arrow_right" 
                   onClick={
-                    ()=> {          
-                      let indexButton = buttonss().indicators.findIndex(button => button.className === 'red');
+                    ()=> {      
+                      const buttonsIndicators = Array.apply(null, document.querySelectorAll(`#categories__${title} > button`))    
+                      let indexButton = buttonsIndicators.findIndex(button => button.className === 'red');
                       if(indexButton > 0) {
-                        buttonss().indicators[indexButton].className = '';
-                        buttonss().indicators[indexButton - 1].className = 'red';         
+                        buttonsIndicators[indexButton].className = '';
+                        buttonsIndicators[indexButton - 1].className = 'red';         
                         fila.scrollLeft -= fila.offsetWidth; 
                       }
                     }
