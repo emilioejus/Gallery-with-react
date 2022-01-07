@@ -16,10 +16,10 @@ const Home = ()=> {
 
     return(
         <>
-        <CarouselMM title="20 most popular" url={url.moviePopular}/>
-        <CarouselMM title="Top rated" url= {url.movieTopRated} />
-        <CarouselMM title="Tv popular" url={url.tvPopular}/>
-        <CarouselMM title="Tv top rated" url={url.tvTopRated} />
+        <CarouselMM title="Popular Movies" url={url.moviePopular}/>
+        <CarouselMM title="Top Rated Movies" url= {url.movieTopRated} />
+        <CarouselMM title="popular Tv" url={url.tvPopular}/>
+        <CarouselMM title="Top Rated Tv" url={url.tvTopRated} />
         </>
     )
 }

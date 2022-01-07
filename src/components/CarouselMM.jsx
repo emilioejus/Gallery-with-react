@@ -21,24 +21,25 @@ const CarouselMM = (props) => {
         setButtons(new Array(Math.ceil(data.results.length / 5)).fill(1))
       }
        call()
-    }, []);
+    }, [url]);
+
+    let id = title.split(" ").join("")
 
     // returns an array with indicator buttons
-    // let buttonss = useCallback(()=> {
-    //   console.log(document.querySelectorAll(`#categories__${title} > button`))
-    //   return {
-    //     indicators: Array.apply(null, document.querySelectorAll(`#categories__${title} > button`))
-    //   }
-    // }, [])
+    let indicators = useCallback(()=> {
+
+      return {
+        buttons: Array.apply(null, document.querySelectorAll(`#${id} > button`))
+      }
+    }, [id])
 
     // Dom
     const fila = document.getElementById(`carousel__${title}`);
-    // const buttonsIndicators = Array.apply(null, document.querySelectorAll(`#categories__${title} > button`))
 
     return (
         <>
         <div className="categories">
-            <div className="categories__indicators" id={`categories__${title}`}>
+            <div className="categories__indicators" id={id}>
                 <h3 className="categories__title">{title}</h3>
                 {/* ***** indicators buttons ***** */}
                 {buttons && buttons.map((value, i) => {
@@ -47,7 +48,7 @@ const CarouselMM = (props) => {
                       <button 
                       onClick={
                         (e)=> {
-                          const buttonsIndicators = Array.apply(null, document.querySelectorAll(`#categories__${title} > button`))
+                          const buttonsIndicators = indicators().buttons
                           buttonsIndicators.map(buttonI => buttonI.className === 'red' ? buttonI.className = '' : buttonI)
                           e.target.className='red'
                           fila.scrollLeft = i * fila.offsetWidth
@@ -62,9 +63,7 @@ const CarouselMM = (props) => {
                       <button 
                       onClick={
                         (e)=> {
-                          setTimeout(()=> console.log(document.querySelectorAll(`#categories__${title} > button`)), 2000) 
-                          const buttonsIndicators = Array.apply(null, document.querySelectorAll(`#categories__${title} > button`))
-                          console.log(buttonsIndicators)
+                          const buttonsIndicators = indicators().buttons
                           buttonsIndicators.map(buttonI => buttonI.className === 'red' ? buttonI.className = '' : buttonI)
                           e.target.className='red'
                           fila.scrollLeft = i * fila.offsetWidth
@@ -83,7 +82,7 @@ const CarouselMM = (props) => {
                 <img className="arrow_left" 
                   onClick={
                     ()=> {
-                      const buttonsIndicators = Array.apply(null, document.querySelectorAll(`#categories__${title} > button`))
+                      const buttonsIndicators = indicators().buttons
                       let indexButton = buttonsIndicators.findIndex(button => button.className === 'red');
                       if(indexButton < (buttons.length - 1)) {
                         buttonsIndicators[indexButton].className = '';
@@ -125,7 +124,7 @@ const CarouselMM = (props) => {
                 <img className="arrow_right" 
                   onClick={
                     ()=> {      
-                      const buttonsIndicators = Array.apply(null, document.querySelectorAll(`#categories__${title} > button`))    
+                      const buttonsIndicators = indicators().buttons    
                       let indexButton = buttonsIndicators.findIndex(button => button.className === 'red');
                       if(indexButton > 0) {
                         buttonsIndicators[indexButton].className = '';
