@@ -9,7 +9,8 @@ import reducer from './reducer'
 import reportWebVitals from './reportWebVitals';
 
 const initialState = {
-  buttonIndicatorsNumber: 0
+  buttonIndicatorsNumber: 0,
+  favorites: []
 }
 
 const store = createStore(reducer, initialState);

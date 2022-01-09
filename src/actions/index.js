@@ -1,9 +1,9 @@
-export const scrollWithIndicators = paylod => ({
-    type: "SET_SCROLL_WITH_INDICATORS",
-    paylod: paylod
+export const setFavorites = paylod => ({
+    type: "SET_FAVORITES",
+    paylod : paylod
 });
 
-export const arrowRightIndicator = paylod => ({
-    type: "ARROW_RIGHT_INDICATOR",
+export const deleteFavorites = paylod => ({
+    type: "DELETE_FAVORITES",
     paylod: paylod
-})
+});

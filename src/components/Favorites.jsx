@@ -1,55 +1,45 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React,{ useCallback } from 'react';
 import { connect } from 'react-redux';
-import { setFavorites } from '../actions';
-import '../assets/styles/carouselMM.css';
+import { deleteFavorites } from '../actions';
+import '../assets/styles/favorites.css';
 import arrowR from'../assets/icons/chevron-right-solid.svg';
 import arrowL from'../assets/icons/chevron-left-solid.svg';
-import plus from '../assets/icons/icons-plus.png';
+import remove from '../assets/icons/icons-delete.png';
 import play from '../assets/icons/icons-play.png';
 
-const CarouselMM = (props) => {
-    const {title, url, favorites} = props
-    // State
-    const [movies, setMovies] = useState([]);
-    // this state is an array containing one element for each indicator button
-    const [buttons, setButtons] = useState(null);
-    
-    // Efect
-    useEffect(()=> {
-      const call =       async ()=> {
-        const res = await fetch(url);
-        const data = await res.json();
-        setMovies(data.results)
-        setButtons(new Array(Math.ceil(data.results.length / 5)).fill(1))
-      }
-       call()
-    }, [url]);
+const Favorites = (props)=> {
+    const { title, favorites } = props
 
+    // create id for queryselector
     let id = title.split(" ").join("")
+
+    // has as value an array filled with one with the number of indicator buttons to be created
+    let indicatorsButtons = new Array(Math.ceil(favorites.length / 5)).fill(1)
 
     // returns an array with indicator buttons
     let indicators = useCallback(()=> {
-      return {
-        buttons: Array.apply(null, document.querySelectorAll(`#${id} > button`))
-      }
+        return {
+          buttons: Array.apply(null, document.querySelectorAll(`#${id} > button`))
+        }
     }, [id])
 
     // Dom
     const fila = document.getElementById(`carousel__${title}`);
 
     // actions or dispatch
-    const handleFavorite = movieOrSerie=> {
-      let exists =  favorites.some(element => element.id === movieOrSerie.id)
-      !exists && props.setFavorites(movieOrSerie)
+    const handleDeleteFavorites = movieIdOrSerieId => {
+        props.deleteFavorites(movieIdOrSerieId)
     }
 
     return (
         <>
-        <div className="categories">
+        {
+            favorites.length > 0 &&
+            <div className="categories">
             <div className="categories__indicators" id={id}>
                 <h3 className="categories__title">{title}</h3>
                 {/* ***** indicators buttons ***** */}
-                {buttons && buttons.map((value, i) => {
+                {favorites && indicatorsButtons.map((value, i) => {
                   if(i === 0) {
                     return (
                       <button 
@@ -91,7 +81,7 @@ const CarouselMM = (props) => {
                     ()=> {
                       const buttonsIndicators = indicators().buttons
                       let indexButton = buttonsIndicators.findIndex(button => button.className === 'red');
-                      if(indexButton < (buttons.length - 1)) {
+                      if(indexButton < (indicatorsButtons.length - 1)) {
                         buttonsIndicators[indexButton].className = '';
                         buttonsIndicators[indexButton + 1].className = 'red';
                         fila.scrollLeft += fila.offsetWidth  
@@ -103,8 +93,7 @@ const CarouselMM = (props) => {
                   width="30px"
                 />  
                 {
-                  // ***** here the images are generated *****
-                  movies.map((movie) => {
+                  favorites.map((movie) => {
                       return (
                           <div className="carousel-item" key={movie.id}>
                               <img className="carousel-item__img" src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`} alt="Poster"  />
@@ -113,12 +102,12 @@ const CarouselMM = (props) => {
                                   <img 
                                       className="carousel-item__details--img" 
                                       src={play} 
-                                      alt="play icon"/>
+                                      alt="plus icon"/>
                                   <img 
-                                    onClick={()=> handleFavorite(movie)}
+                                  onClick={()=> handleDeleteFavorites(movie.id)}
                                     className="carousel-item__details--img" 
-                                    src={plus} 
-                                    alt="plus icon"/>
+                                    src={remove} 
+                                    alt="remove icon"/>
                                 </div>
                                 <div>
                                     <p className="carousel-item__details--title">{movie.original_title}  </p>
@@ -148,16 +137,17 @@ const CarouselMM = (props) => {
               </div>
             </section>
         </div>
+        }
         </>
-    )
+    );
 }
 
 const mapStateToProps = state => {
-  return state
-}
-
-const mapDispatchToProps = {
-  setFavorites
+    return state
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CarouselMM);
+const mapDispatchToProps = {
+    deleteFavorites
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

@@ -1,9 +1,11 @@
 import React from 'react';
 import CarouselMM from '../components/CarouselMM';
+import Favorites from '../components/Favorites';
 
 const Home = ()=> {
     const apiKey = 'b89fc45c2067cbd33560270639722eae';
-    // details
+
+    // APIS
     const url = {
         moviePopular: `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${apiKey}`,
         movieDetails: `https://api.themoviedb.org/3/movie/{movie_id}?api_key=${apiKey}&language=en-US`,
@@ -11,11 +13,10 @@ const Home = ()=> {
         tvPopular: `https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=en-US&page=1`,
         tvTopRated: `https://api.themoviedb.org/3/tv/top_rated?api_key=${apiKey}&language=en-US&page=1`
     }
-    // popular
-    // const url2 = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${apiKey}`;
 
     return(
         <>
+        <Favorites title="Favorites"/>
         <CarouselMM title="Popular Movies" url={url.moviePopular}/>
         <CarouselMM title="Top Rated Movies" url= {url.movieTopRated} />
         <CarouselMM title="popular Tv" url={url.tvPopular}/>
