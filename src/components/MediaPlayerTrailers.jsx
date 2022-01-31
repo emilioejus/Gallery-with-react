@@ -9,13 +9,19 @@ const MediaPlayerTrailers = ({videos, title}) => {
     const videoDom = useRef(null);
     const containerMediaPlayer = useRef(null)
 
-    //intersectionObserver
+
+
+    //useEffect
+    useEffect(()=> {
+            //intersectionObserver
     let threshold = 0.70;
 
     const handleIntersection = entries => {
         let entry = entries[0].intersectionRatio
 
-        if(entry >= 0.70) {
+        if(videoDom.current === null) {
+            return
+        }else if(entry >= 0.70) {
             videoDom.current.play()
         }else if(entry < 0.70) {
             videoDom.current.pause()
@@ -23,10 +29,13 @@ const MediaPlayerTrailers = ({videos, title}) => {
     };
 
     const observer =  new IntersectionObserver(handleIntersection, {threshold: threshold});
-
-    //useEffect
-    useEffect(()=> {
         observer.observe(containerMediaPlayer.current)
+
+        //visibilityChange
+        document.addEventListener('visibilitychange', ()=> {
+            const isVisibility = document.visibilityState === 'visible'
+            isVisibility ? videoDom.current.play() : videoDom.current.pause() 
+        });
 
             //time
     videoDom.current.addEventListener('ended', ()=> {

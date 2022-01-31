@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import lupa from '../assets/icons/icons-lupa.png'
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 
@@ -14,6 +15,7 @@ const Navbar = ()=> {
               </button>
               <div className="collapse navbar-collapse  justify-content-end me-5" id="navbarNavAltMarkup">
                 <div className="navbar-nav">
+                  <Link className="nav-link" to="/search"><img  src={lupa} alt="Lupa" width='20px' style={{backgroundColor: "white"}}/></Link>
                   <Link className="nav-link" to="/login">Login</Link>
                   <Link className="nav-link" to="/register">Register</Link>
                 </div>
