@@ -1,0 +1,19 @@
+.container_media_player {
+    background-color: black;
+}
+
+.container_media_player:hover {
+    background-color: black;
+
+}
+
+.container_media_player > h1 {
+    color: white;
+    margin: 0px;
+    display: none;
+}
+
+.container_media_player_video {
+    width: 100%;
+    margin: 0px
+}
