@@ -13,32 +13,39 @@ const MediaPlayerTrailers = ({videos, title}) => {
 
     //useEffect
     useEffect(()=> {
-            //intersectionObserver
-    let threshold = 0.70;
 
-    const handleIntersection = entries => {
-        let entry = entries[0].intersectionRatio
+        //intersectionObserver
+        let threshold = 0.70;
 
-        if(videoDom.current === null) {
-            return
-        }else if(entry >= 0.70) {
-            videoDom.current.play()
-        }else if(entry < 0.70) {
-            videoDom.current.pause()
-        }
-    };
+        const handleIntersection = entries => {
+            let entry = entries[0].intersectionRatio
 
-    const observer =  new IntersectionObserver(handleIntersection, {threshold: threshold});
+            if(videoDom.current === null) {
+                return
+            }else if(entry >= 0.70) {
+                videoDom.current.play()
+            }else if(entry < 0.70) {
+                videoDom.current.pause()
+            }
+        };
+
+        const observer =  new IntersectionObserver(handleIntersection, {threshold: threshold});
         observer.observe(containerMediaPlayer.current)
 
         //visibilityChange
         document.addEventListener('visibilitychange', ()=> {
             const isVisibility = document.visibilityState === 'visible'
-            isVisibility ? videoDom.current.play() : videoDom.current.pause() 
+            if(videoDom.current === null) {
+                return
+            }else if(isVisibility) {
+                videoDom.current.play()
+            } else {
+                videoDom.current.pause()
+            } 
         });
 
-            //time
-    videoDom.current.addEventListener('ended', ()=> {
+        //time
+        videoDom.current.addEventListener('ended', ()=> {
         const videoRotation = ()=> {
             let videoRotationIncitial = allVideos.slice(0, 1);
             let videoRotationFinal = allVideos.slice(1);
