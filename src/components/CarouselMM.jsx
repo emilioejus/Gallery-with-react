@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import { connect } from 'react-redux';
-import { setFavorites } from '../actions';
+import { setFavorites, setAllVideos } from '../actions';
 import '../assets/styles/carouselMM.css';
 import arrowR from'../assets/icons/chevron-right-solid.svg';
 import arrowL from'../assets/icons/chevron-left-solid.svg';
@@ -8,7 +8,7 @@ import plus from '../assets/icons/icons-plus.png';
 import play from '../assets/icons/icons-play.png';
 
 const CarouselMM = (props) => {
-    const {title, url, favorites} = props
+    const {title, url, favorites, allVideos} = props
     // State
     const [movies, setMovies] = useState([]);
     // this state is an array containing one element for each indicator button
@@ -21,9 +21,12 @@ const CarouselMM = (props) => {
         const data = await res.json();
         setMovies(data.results)
         setButtons(new Array(Math.ceil(data.results.length / 5)).fill(1))
+
+        // this is a verification not to duplicate the status of all videos
+        allVideos.length <= 0 && props.setAllVideos(data.results)
       }
-       call()
-    }, [url]);
+      call()
+    }, [title]);
 
     let id = title.split(" ").join("")
 
@@ -157,7 +160,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  setFavorites
+  setFavorites,
+  setAllVideos
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarouselMM);

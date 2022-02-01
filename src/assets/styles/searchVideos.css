@@ -1,0 +1,27 @@
+
+.container_search {
+min-height: 684px;
+}
+
+.container_search > h1 {
+    color: white;
+    padding-top: 30px;
+    margin: 0px;
+}
+
+.container_search > center > input{
+    width: 50%;
+    margin-top: 5em;
+    margin-bottom: 5em;
+}
+
+.container_search_video > img {
+    width: 200px;
+    height: 350px;
+    border-radius: 20px;
+    margin: 5px;
+    overflow:auto;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}

@@ -10,7 +10,8 @@ import reportWebVitals from './reportWebVitals';
 
 const initialState = {
   buttonIndicatorsNumber: 0,
-  favorites: []
+  favorites: [],
+  allVideos:[]
 }
 
 const store = createStore(reducer, initialState);

@@ -19,7 +19,12 @@ const reducer = (state, action) => {
 
         case "ARROW_RIGHT_INDICATOR":
             return {...state, buttonIndicatorsNumber: action.paylod += 1}    
-    
+            break;
+        case "SET_ALL_VIDEOS":
+            return{
+                ...state,
+                allVideos: [...state.allVideos, ...action.paylod]
+            }    
         default:
             return state
     }
