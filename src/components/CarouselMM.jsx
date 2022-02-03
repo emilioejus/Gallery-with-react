@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import { connect } from 'react-redux';
-import { setFavorites, setAllVideos } from '../actions';
+import { Link } from 'react-router-dom';
+import { setFavorites, setAllVideos, setDetails } from '../actions';
 import '../assets/styles/carouselMM.css';
 import arrowR from'../assets/icons/chevron-right-solid.svg';
 import arrowL from'../assets/icons/chevron-left-solid.svg';
@@ -13,6 +14,7 @@ const CarouselMM = (props) => {
     const [movies, setMovies] = useState([]);
     // this state is an array containing one element for each indicator button
     const [buttons, setButtons] = useState(null);
+    console.log('hola')
     
     // Efect
     useEffect(()=> {
@@ -92,13 +94,17 @@ const CarouselMM = (props) => {
                 <img className="arrow_left" 
                   onClick={
                     ()=> {
-                      const buttonsIndicators = indicators().buttons
-                      let indexButton = buttonsIndicators.findIndex(button => button.className === 'red');
-                      if(indexButton < (buttons.length - 1)) {
-                        buttonsIndicators[indexButton].className = '';
-                        buttonsIndicators[indexButton + 1].className = 'red';
-                        fila.scrollLeft += fila.offsetWidth  
-                      }   
+                      if(window.screen.width > 450){
+                        const buttonsIndicators = indicators().buttons
+                        let indexButton = buttonsIndicators.findIndex(button => button.className === 'red');
+                        if(indexButton < (buttons.length - 1)) {
+                          buttonsIndicators[indexButton].className = '';
+                          buttonsIndicators[indexButton + 1].className = 'red';
+                          fila.scrollLeft += fila.offsetWidth  
+                        }  
+                      }else {
+                        fila.scrollLeft += fila.offsetWidth
+                      }
                     }
                   }
                   src={arrowR} 
@@ -113,10 +119,13 @@ const CarouselMM = (props) => {
                               <img className="carousel-item__img" src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`} alt="Poster"  />
                               <div className="carousel-item__details">
                                 <div>
+                                  <Link to="/details" onClick={()=> props.setDetails(movie)}>
                                   <img 
                                       className="carousel-item__details--img" 
+                                      
                                       src={play} 
                                       alt="play icon"/>
+                                  </Link>    
                                   <img 
                                     onClick={()=> handleFavorite(movie)}
                                     className="carousel-item__details--img" 
@@ -136,12 +145,16 @@ const CarouselMM = (props) => {
                 <img className="arrow_right" 
                   onClick={
                     ()=> {      
-                      const buttonsIndicators = indicators().buttons    
-                      let indexButton = buttonsIndicators.findIndex(button => button.className === 'red');
-                      if(indexButton > 0) {
-                        buttonsIndicators[indexButton].className = '';
-                        buttonsIndicators[indexButton - 1].className = 'red';         
-                        fila.scrollLeft -= fila.offsetWidth; 
+                      if(window.screen.width > 450) {
+                        const buttonsIndicators = indicators().buttons    
+                        let indexButton = buttonsIndicators.findIndex(button => button.className === 'red');
+                        if(indexButton > 0) {
+                          buttonsIndicators[indexButton].className = '';
+                          buttonsIndicators[indexButton - 1].className = 'red';         
+                          fila.scrollLeft -= fila.offsetWidth; 
+                        }
+                      }else {
+                        fila.scrollLeft -= fila.offsetWidth;
                       }
                     }
                   }
@@ -161,7 +174,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   setFavorites,
-  setAllVideos
+  setAllVideos,
+  setDetails
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarouselMM);

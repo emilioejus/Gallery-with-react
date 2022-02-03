@@ -1,4 +1,4 @@
-import React, {useState, useRef, useMemo, useEffect} from 'react';
+import React, {useState, useRef} from 'react';
 import { connect } from 'react-redux';
 import '../assets/styles/searchVideos.css';
 
@@ -40,7 +40,7 @@ const SearchVideos = ({allVideos})=> {
         <div className='container_search'>
             <h1>Search</h1>
             <center>
-                <input type="text" class="form-control" placeholder='search for' ref={searchInput} onChange={handleSearch}></input>
+                <input type="text" className="form-control" placeholder='search for' ref={searchInput} onChange={handleSearch}></input>
             </center>
             <div className='container_search_video' >
                 {

@@ -21,10 +21,15 @@ const reducer = (state, action) => {
             return {...state, buttonIndicatorsNumber: action.paylod += 1}    
             break;
         case "SET_ALL_VIDEOS":
-            return{
+            return {
                 ...state,
                 allVideos: [...state.allVideos, ...action.paylod]
-            }    
+            }
+            break;
+        case "SET_DETAILS":
+            return {
+                ...state, details: action.paylod
+            }      
         default:
             return state
     }

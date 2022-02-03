@@ -61,7 +61,7 @@ const MediaPlayerTrailers = ({videos, title}) => {
         <>
         {
         allVideos.length > 0
-            ?  <div className='container_media_player'> 
+            ?  <div className='container_media_player_trailer'> 
                     <h1>{title}</h1>
                     <div className='container_media_player_video' ref={containerMediaPlayer}>
                         <video src={allVideos[0]} ref={videoDom} onClick={(event)=> {event.target.play()}} muted autoPlay controls width="100%" height="600px" style={{backgroundColor:"black"}}/>

@@ -1,6 +1,7 @@
 import React,{ useCallback } from 'react';
 import { connect } from 'react-redux';
-import { deleteFavorites } from '../actions';
+import { deleteFavorites, setDetails } from '../actions';
+import { Link } from 'react-router-dom'
 import '../assets/styles/favorites.css';
 import arrowR from'../assets/icons/chevron-right-solid.svg';
 import arrowL from'../assets/icons/chevron-left-solid.svg';
@@ -99,10 +100,12 @@ const Favorites = (props)=> {
                               <img className="carousel-item__img" src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`} alt="Poster"  />
                               <div className="carousel-item__details">
                                 <div>
+                                  <Link to="/details" onClick={()=> props.setDetails(movie)}>
                                   <img 
-                                      className="carousel-item__details--img" 
-                                      src={play} 
-                                      alt="plus icon"/>
+                                    className="carousel-item__details--img" 
+                                    src={play} 
+                                    alt="play icon"/>
+                                  </Link> 
                                   <img 
                                   onClick={()=> handleDeleteFavorites(movie.id)}
                                     className="carousel-item__details--img" 
@@ -147,7 +150,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-    deleteFavorites
+    deleteFavorites,
+    setDetails
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

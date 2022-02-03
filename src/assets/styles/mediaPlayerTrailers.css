@@ -1,13 +1,9 @@
-.container_media_player {
+.container_media_player_trailer {
     background-color: black;
 }
 
-.container_media_player:hover {
-    background-color: black;
 
-}
-
-.container_media_player > h1 {
+.container_media_player_trailer > h1 {
     color: white;
     margin: 0px;
     display: none;
@@ -17,3 +13,16 @@
     width: 100%;
     margin: 0px
 }
+
+/* media queries */
+
+@media (max-width:450px) {
+
+    .container_media_player_video {
+        
+    }
+
+    .container_media_player_video > video {
+        height: 200px;
+    }
+  }

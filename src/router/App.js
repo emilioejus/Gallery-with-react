@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import SignIn from '../views/SignIn';
 import SignUp from '../views/SignUp';
 import SearchVideos from '../views/SearchVideos';
+import VideoViewDetails from '../views/VideoViewDetails'
 import NotFound from '../views/NotFound';
 
 function App() {
@@ -15,11 +16,12 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route exact path="/" element={<Home/>}/>
-          <Route exact path="search" element={<SearchVideos />} />
-          <Route exact path="/login" element={<SignIn/>}/>
-          <Route exact path="/register" element={<SignUp/>}/>
-          <Route path="*" element={<NotFound/>} />
+          <Route exact path="/details" element={ <VideoViewDetails />} />
+          <Route exact path="/" element={ <Home />} />
+          <Route exact path="/search" element={ <SearchVideos />} />
+          <Route exact path="/login" element={ <SignIn />} />
+          <Route exact path="/register" element={ <SignUp />} />
+          <Route path="*" element={ <NotFound /> } />
         </Routes>
         <Footer />
       </Router>
