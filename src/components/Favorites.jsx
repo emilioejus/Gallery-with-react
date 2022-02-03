@@ -80,12 +80,16 @@ const Favorites = (props)=> {
                 <img className="arrow_left" 
                   onClick={
                     ()=> {
-                      const buttonsIndicators = indicators().buttons
-                      let indexButton = buttonsIndicators.findIndex(button => button.className === 'red');
-                      if(indexButton < (indicatorsButtons.length - 1)) {
-                        buttonsIndicators[indexButton].className = '';
-                        buttonsIndicators[indexButton + 1].className = 'red';
-                        fila.scrollLeft += fila.offsetWidth  
+                      if(window.screen.width > 450) {
+                        const buttonsIndicators = indicators().buttons
+                        let indexButton = buttonsIndicators.findIndex(button => button.className === 'red');
+                        if(indexButton < (indicatorsButtons.length - 1)) {
+                          buttonsIndicators[indexButton].className = '';
+                          buttonsIndicators[indexButton + 1].className = 'red';
+                          fila.scrollLeft += fila.offsetWidth;  
+                        }
+                      }else {
+                        fila.scrollLeft += fila.offsetWidth
                       }   
                     }
                   }
@@ -124,13 +128,17 @@ const Favorites = (props)=> {
                 {/* ***** arrow left ***** */}
                 <img className="arrow_right" 
                   onClick={
-                    ()=> {      
-                      const buttonsIndicators = indicators().buttons    
-                      let indexButton = buttonsIndicators.findIndex(button => button.className === 'red');
-                      if(indexButton > 0) {
-                        buttonsIndicators[indexButton].className = '';
-                        buttonsIndicators[indexButton - 1].className = 'red';         
-                        fila.scrollLeft -= fila.offsetWidth; 
+                    ()=> {
+                      if(window.screen.width > 450) {
+                        const buttonsIndicators = indicators().buttons    
+                        let indexButton = buttonsIndicators.findIndex(button => button.className === 'red');
+                        if(indexButton > 0) {
+                          buttonsIndicators[indexButton].className = '';
+                          buttonsIndicators[indexButton - 1].className = 'red';         
+                          fila.scrollLeft -= fila.offsetWidth; 
+                        }
+                      }else {
+                        fila.scrollLeft -= fila.offsetWidth
                       }
                     }
                   }

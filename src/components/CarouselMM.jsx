@@ -14,7 +14,6 @@ const CarouselMM = (props) => {
     const [movies, setMovies] = useState([]);
     // this state is an array containing one element for each indicator button
     const [buttons, setButtons] = useState(null);
-    console.log('hola')
     
     // Efect
     useEffect(()=> {
